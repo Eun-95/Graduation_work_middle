@@ -1,0 +1,180 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8" import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="sns"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>주말+</title>
+<meta name="viewport"
+	content="width=device-width,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.8">
+<meta name="format-detection" content="telephone=no">
+<!-- user-scalable=yes -->
+<link rel="stylesheet" href="css/styles.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/SNS_Menu.css" />
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript"
+	src="//developers.band.us/js/share/band-button.js?v=07022019"></script>
+<script type="text/javascript"
+	src="//static.naver.net/blog/share/blog_sharebutton.js?v={0}"></script>
+<script type='text/javascript'>
+	$(function() {
+		$("#accordion").accordion({
+			heightStyle : "content",
+			active : parseInt("${curmsg == null ? 0:curmsg}")
+		});
+	});
+	function kkk(a) {
+		window.open("goods.jsp?ww=" + a, "kkk",
+				"location=no,resizeable=no,menubar=no,width=300,height=240");
+	}
+</script>
+<script type='text/javascript'>
+	$(document)
+			.ready(
+					function() {
+						var trigger = $('.hamburger'), overlay = $('.overlay'), isClosed = false;
+
+						trigger.click(function() {
+							hamburger_cross();
+						});
+
+						function hamburger_cross() {
+
+							if (isClosed == true) {
+								overlay.hide();
+								trigger.removeClass('is-open');
+								trigger.addClass('is-closed');
+								isClosed = false;
+							} else {
+								overlay.show();
+								trigger.removeClass('is-closed');
+								trigger.addClass('is-open');
+								isClosed = true;
+							}
+						}
+
+						$('[data-toggle="offcanvas"]').click(function() {
+							$('#wrapper').toggleClass('toggled');
+						});
+					});
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('49bbefdec55f169fc3e4f0fa9d24f2e3');
+
+	function sendLink() {
+		Kakao.Link
+				.sendDefault({
+					objectType : 'location',
+					address : '서울특별시 노원구 동일로 214길 32',
+					addressTitle : '한국성서대학교',
+					content : {
+						title : '주말플러스',
+						description : '#여행 #욜로 #주말 뭐하지? #휴식',
+						imageUrl : 'https://cdn.pixabay.com/photo/2016/01/09/18/27/old-1130731_960_720.jpg',
+						link : {
+							mobileWebUrl : 'http://210.123.254.63:8080/12345678/main.jsp'
+
+						}
+					},
+					buttons : [ {
+						title : '모바일 웹으로 보기',
+						link : {
+							mobileWebUrl : 'http://210.123.254.63:8080/12345678/main.jsp'
+						}
+					} ]
+				});
+	}
+	//]]>
+
+	function shareFB()
+
+	{
+
+	   window.open('http://www.facebook.com/sharer/sharer.php?u=http://210.123.254.63:8080/12345678/main.jsp');
+
+	}
+	
+	function SNS() {
+		location.href = "/12345678/gta?action=getall";
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="wrapper" class="float_layer">
+		<div class="overlay"></div>
+		<div class="Site-header">
+			<h1 class="Site-logo">
+				<a href="submain.jsp" class="Site-logo_link1"> <span
+					class="Site-logo_text">주말+</span>
+				</a>
+				<sns:login1/>
+			</h1>
+		</div>
+		<!-- Sidebar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			id="sidebar-wrapper" role="navigation">
+		<ul class="nav sidebar-nav">
+				<li class="sidebar-brand">전체메뉴</li>
+				<li><a href="submain.jsp"><i class="fa fa-home fa-fw" aria-hidden="true" style="width:20.58px"></i>&nbsp;Home</a></li>
+				<li class="dropdown"><a href=""><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;김재훈대학교</a></li>
+				<li class="dropdown"><a href="javascript:SNS()"><i class="fa fa-comments" aria-hidden="true" style="width:20.58px"></i>&nbsp;SNS</a></li>
+				
+				
+				<c:choose>
+					<c:when test="${uid != null}">
+					
+					<li class="dropdown"><a href="user_control.jsp?action=logout&action1=login1"><i class="fa fa-sign-out" aria-hidden="true" style="width:20.58px"></i>&nbsp;로그아웃</a></li>
+						
+						
+					</c:when>
+					<c:otherwise>
+						<li class="dropdown"><a href="Site_Login.jsp"><i class="fa fa-sign-in" aria-hidden="true" style="width:20.58px"></i>&nbsp;로그인</a></li>
+					</c:otherwise>
+					</c:choose>	
+				
+				
+					<c:choose>
+					<c:when test="${uid != null}">
+					
+					<li class="dropdown"><a href="deleteUser.bo?nickname=${uid }"><i class="fa fa-user-times" aria-hidden="true" style="width:20.58px"></i>&nbsp;회원탈퇴</a></li>	
+						
+					</c:when>
+					<c:otherwise>
+						
+					</c:otherwise>
+					</c:choose>	
+				<li class="dropdown"><a href="tel:010-9899-9125"
+					data-role="button"><i class="fa fa-phone" aria-hidden="true" style="width:20.58px"></i>&nbsp;고객센터(전화)</a>
+				
+				<li class="dropdown"><a href="sms:010-9899-9125"
+					data-role="button"><i class="fa fa-comment" aria-hidden="true" style="width:20.58px"></i>&nbsp;고객센터(문자)</a>
+			</ul>
+		</nav>
+		<!-- /#sidebar-wrapper -->
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<button type="button" class="hamburger is-closed animated fadeInLeft"
+				data-toggle="offcanvas">
+				<span class="hamb-top"></span> <span class="hamb-middle"></span> <span
+					class="hamb-bottom"></span>
+			</button>
+		</div>
+	</div>
+	<!-- /#page-content-wrapper -->
+	<!-- /#wrapper -->
+	
+</body>
+</html>
